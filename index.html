@@ -251,7 +251,7 @@
           </p>
         </div>
         <div class="grant-layout">
-          <form id="grant-form" class="grant-form">
+          <form id="grant-form" class="grant-form" autocomplete="off">
             <div class="form-topline">
               <div>
                 <span class="section-kicker">ЗАЯВКА НА ГРАНТ</span>
@@ -265,13 +265,13 @@
               </legend>
               <div class="fields-grid">
                 <label class="field">ФИО законного представителя <span class="required">*</span><input name="parentName"
-                    id="parent-name" autocomplete="name" placeholder="Иванова Мария Сергеевна" maxlength="150"
+                    id="parent-name" autocomplete="off" placeholder="Иванова Мария Сергеевна" maxlength="150"
                     required /></label>
                 <label class="field">Телефон законного представителя
-                  <span class="required">*</span><input name="phone" id="phone" type="tel" autocomplete="tel"
+                  <span class="required">*</span><input name="phone" id="phone" type="tel" autocomplete="off"
                     placeholder="+7 (999) 123-45-67" maxlength="24" required /></label>
                 <label class="field full-width">Почта законного представителя
-                  <span class="required">*</span><input name="email" id="email" type="email" autocomplete="email"
+                  <span class="required">*</span><input name="email" id="email" type="email" autocomplete="off"
                     placeholder="example@mail.ru" maxlength="150" required /></label>
               </div>
             </fieldset>
@@ -325,7 +325,7 @@
                 <label class="field">Номер школы <span class="required">*</span><input name="school" id="school"
                     placeholder="ГБОУ Школа № 1234" maxlength="150" required /></label>
                 <label class="field">Населённый пункт <span class="required">*</span><input name="city" id="city"
-                    autocomplete="address-level2" placeholder="г. Москва" maxlength="120" required /></label>
+                    autocomplete="off" placeholder="г. Москва" maxlength="120" required /></label>
               </div>
             </fieldset>
             <div class="form-bottom">
@@ -419,9 +419,9 @@
     <p class="modal-description" id="login-description">
       Войдите, чтобы сохранить свой следующий шаг в IT.
     </p>
-    <form id="login-form">
+    <form id="login-form" autocomplete="off">
       <label class="field">Логин<input id="login" name="login" placeholder="Как к вам обращаться?"
-          autocomplete="username" maxlength="50" required /></label><label class="field password-field">Пароль<span
+          autocomplete="off" maxlength="50" required /></label><label class="field password-field">Пароль<span
           class="password-wrap"><input id="password" name="password" type="password" placeholder="Введите любой пароль"
             autocomplete="off" maxlength="100" required /><button id="toggle-password" class="password-toggle"
             type="button" aria-label="Показать пароль" aria-pressed="false">

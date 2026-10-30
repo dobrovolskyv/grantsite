@@ -67,6 +67,7 @@ let applications = Array.isArray(storedApplications)
   : [];
 let pendingSubmission = null;
 let processing = false;
+let sessionVersion = 0;
 let focusBeforeDialog = null;
 const grantForm = $("#grant-form");
 const dialogs = document.querySelectorAll("dialog");
@@ -215,19 +216,59 @@ $("#login-form").addEventListener("submit", (event) => {
 });
 
 $("#login").addEventListener("input", () => $("#login").setCustomValidity(""));
-$("#logout").addEventListener("click", () => {
-  try {
-    localStorage.removeItem(storageKeys.account);
-  } catch {
-    notify("Не удалось удалить данные входа из браузера.");
-    return;
-  }
+function resetSession() {
+  sessionVersion++;
   account = null;
+  applications = [];
+  pendingSubmission = null;
+  processing = false;
+  $("#submit-grant").disabled = false;
+  [grantForm, $("#login-form")].forEach((form) => {
+    form.reset();
+    [...form.elements].forEach((field) => field.setCustomValidity?.(""));
+  });
+  $("#password").type = "password";
+  $("#toggle-password").setAttribute("aria-pressed", "false");
+  $("#toggle-password").setAttribute("aria-label", "Показать пароль");
+  $("#social-select").open = false;
+  updateSocialSelect();
+  $("#form-error").hidden = true;
+  $("#form-error").textContent = "";
+  $("#draft-status").textContent = "Черновик сохраняется автоматически";
   $("#profile-title").textContent = "";
   $("#profile-avatar").textContent = "";
-  closeDialog($("#profile-dialog"));
+  $("#saved-application-info").textContent = "";
+  $("#decision-number").textContent = "";
+  $("#result-details").replaceChildren();
+  dialogs.forEach((dialog) => {
+    if (dialog.open) closeDialog(dialog);
+  });
   updateAccount();
-  notify("Вы вышли из аккаунта");
+}
+
+$("#logout").addEventListener("click", () => {
+  let cleared = true;
+  try {
+    localStorage.clear();
+  } catch {
+    cleared = false;
+  }
+  resetSession();
+  notify(
+    cleared
+      ? "Вы вышли из аккаунта. Все сохранённые данные удалены."
+      : "Вы вышли из аккаунта, но не удалось очистить localStorage браузера.",
+  );
+});
+
+// Clear open forms in other tabs too, so they cannot restore the old draft.
+window.addEventListener("storage", (event) => {
+  if (
+    event.storageArea === localStorage &&
+    event.newValue === null &&
+    (event.key === null || event.key === storageKeys.account)
+  )
+    resetSession();
 });
 
 $("#profile-application").addEventListener("click", () => {
@@ -403,6 +444,7 @@ const wait = (duration) =>
 
 async function processApplication(data) {
   if (processing || !account) return;
+  const submissionSession = sessionVersion;
   processing = true;
   const login = account.login;
   $("#submit-grant").disabled = true;
@@ -419,12 +461,14 @@ async function processApplication(data) {
     checkpoint.querySelector(".checkpoint-state").textContent = "Проверяем";
     $("#progress-live").textContent =
       `Этап ${index + 1} из ${checkpoints.length}: ${checkpoint.children[1].textContent}`;
-    await wait([1150, 1600, 1350, 1250, 1500, 1300, 1400][index]);
+    await wait([3150, 3600, 4350, 3250, 4500, 2300, 6400][index]);
+    if (submissionSession !== sessionVersion) return;
     checkpoint.className = "done";
     checkpoint.querySelector(".checkpoint-state").textContent = "Готово";
     setProgress(Math.round(((index + 1) / checkpoints.length) * 100));
   }
   await wait(500);
+  if (submissionSession !== sessionVersion) return;
   const application = {
     id: createDecisionNumber(),
     login,

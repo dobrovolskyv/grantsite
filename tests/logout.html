@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Logout regression test</title>
+<pre id="output">RUNNING</pre>
+<script type="module">
+  const output = document.querySelector("#output");
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  function assert(condition, message) {
+    if (!condition) throw new Error(message);
+  }
+  function load(frame) {
+    return new Promise((resolve) => {
+      frame.onload = () => resolve(frame.contentWindow);
+      frame.src = `../index.html?test=${Math.random()}#grant`;
+      if (!frame.isConnected) document.body.append(frame);
+    });
+  }
+  function login(win, name) {
+    win.document.querySelector("#account-button").click();
+    win.document.querySelector("#login").value = name;
+    win.document.querySelector("#password").value = "demo-password";
+    win.document.querySelector("#login-form").requestSubmit();
+  }
+  function logout(win) {
+    win.document.querySelector("#account-button").click();
+    win.document.querySelector("#logout").click();
+  }
+  function assertReset(win) {
+    const doc = win.document;
+    for (const field of doc.querySelectorAll("#grant-form input, #grant-form select, #login-form input")) {
+      assert(field.type === "checkbox" ? !field.checked : field.value === "", `Field not empty: ${field.name}`);
+      assert(!field.validity.customError, `Validation not reset: ${field.name}`);
+    }
+    assert(doc.querySelector("#account-label").textContent === "Войти", "Account still visible");
+    assert(doc.querySelector("#saved-application").hidden, "Saved application still visible");
+    assert(!doc.querySelector("#saved-application-info").textContent, "Saved summary retained");
+    assert(!doc.querySelector("#decision-number").textContent, "Decision number retained");
+    assert(!doc.querySelector("#result-details").textContent, "Result details retained");
+    assert(doc.querySelector("#social-value").textContent === "Выберите категорию", "Category label retained");
+    assert(!doc.querySelector("#social-select").open, "Category menu still open");
+    assert(doc.querySelector("#form-error").hidden, "Form error still visible");
+    assert(!doc.querySelector("dialog[open]"), "Dialog still open");
+    assert(!doc.querySelector("#submit-grant").disabled, "Submit still disabled");
+  }
+  try {
+    const data = {
+      parentName: "Demo Parent", phone: "+79990000000", email: "demo@example.com",
+      birthDate: "2012-01-01", studentName: "Demo Student", diagnostic: "5 — отлично",
+      school: "Demo School", city: "Demo City", socialCategories: ["Многодетная семья"],
+    };
+    localStorage.clear();
+    localStorage.setItem("kodlox.account", JSON.stringify({ login: "demo-one", password: "demo-password" }));
+    localStorage.setItem("kodlox.grantDraft", JSON.stringify(data));
+    localStorage.setItem("kodlox.applications", JSON.stringify([{ id: "DEMO-DECISION", login: "demo-one", data }]));
+    localStorage.setItem("kodlox.theme", "dark");
+    localStorage.setItem("extra-test-key", "must also be removed");
+    const frame = document.createElement("iframe");
+    let win = await load(frame);
+    const otherFrame = document.createElement("iframe");
+    const other = await load(otherFrame);
+    assert(win.document.querySelector("#parent-name").value === data.parentName, "Draft was not restored before logout");
+    win.document.querySelector("#show-last-result").click();
+    assert(win.document.querySelector("#result-details").textContent.includes(data.studentName), "Saved grant not restored before logout");
+    win.document.querySelector('[data-close="result-dialog"]').click();
+    await delay(50);
+    other.document.querySelector("#grant-form").requestSubmit();
+    assert(other.document.querySelector("#progress-dialog").open, "Submission did not start");
+    win.document.querySelector("#phone").setCustomValidity("Test error");
+    win.document.querySelector("#form-error").hidden = false;
+    logout(win);
+    assert(localStorage.length === 0, "Logout did not clear all localStorage keys");
+    assertReset(win);
+    await delay(4000);
+    assertReset(other);
+    assert(localStorage.length === 0, "Other tab restored data after logout");
+
+    login(win, "demo-one");
+    assert(win.document.querySelector("#saved-application").hidden, "Same account recovered the old grant");
+    assert(!win.document.querySelector("#parent-name").value, "Same account recovered old inputs");
+    logout(win);
+    await delay(50);
+    login(win, "demo-two");
+    const form = win.document.querySelector("#grant-form");
+    for (const [name, value] of Object.entries(data)) {
+      if (name !== "socialCategories") form.elements[name].value = value;
+    }
+    form.querySelector('[name="socialCategory"]').checked = true;
+    form.dispatchEvent(new win.Event("change", { bubbles: true }));
+    assert(localStorage.getItem("kodlox.grantDraft"), "New draft no longer saves");
+    // Speed up the demo checks to verify that a new submission still completes.
+    const nativeTimeout = win.setTimeout.bind(win);
+    win.setTimeout = (callback, ms, ...args) => nativeTimeout(callback, Math.min(ms, 5), ...args);
+    form.requestSubmit();
+    await delay(300);
+    assert(win.document.querySelector("#result-dialog").open, "New grant submission did not complete");
+    assert(JSON.parse(localStorage.getItem("kodlox.applications"))[0].login === "demo-two", "New grant belongs to wrong account");
+    win.document.querySelector('[data-close="result-dialog"]').click();
+    await delay(50);
+    logout(win);
+    win = await load(frame);
+    assertReset(win);
+    assert(localStorage.length === 0, "Reload restored cleared data");
+
+    login(win, "demo-three");
+    win.document.querySelector("#parent-name").value = "Unsaved Demo";
+    const originalClear = win.Storage.prototype.clear;
+    win.Storage.prototype.clear = () => { throw new Error("Storage unavailable"); };
+    logout(win);
+    assertReset(win);
+    assert(win.document.querySelector("#toast").textContent.includes("не удалось очистить"), "Storage failure was not reported");
+    win.Storage.prototype.clear = originalClear;
+    localStorage.clear();
+    frame.remove();
+    otherFrame.remove();
+    output.textContent = "PASS: logout, full storage cleanup, form reset, saved result removal, cross-tab cancellation, repeat login, new submission, reload, storage failure";
+  } catch (error) {
+    output.textContent = `FAIL: ${error.stack}`;
+  }
+</script>
+</html>
