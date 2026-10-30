@@ -517,8 +517,8 @@ function showResult(application) {
   });
   $(".result-note").textContent =
     application.saved === false
-      ? "Демонстрационное решение · Не удалось сохранить в браузере"
-      : "Демонстрационное решение · Сохранено в вашем браузере";
+      ? "Не удалось сохранить в браузере"
+      : "Сохранено в вашем браузере";
   openDialog("result-dialog");
 }
 
