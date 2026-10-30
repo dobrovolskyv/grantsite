@@ -1,0 +1,806 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#fffdf5" />
+    <meta
+      name="description"
+      content="Кодлокс — мини-сайт школы программирования. Программы обучения и демонстрационная заявка на грант."
+    />
+    <title>Кодлокс — код твоего будущего</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link id="light-theme" rel="stylesheet" href="styles.css" />
+    <link id="dark-theme" rel="stylesheet" href="styles_old.css" media="not all" />
+    <script src="theme.js"></script>
+    <link rel="stylesheet" href="theme.css" />
+    <script src="app.js" defer></script>
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Перейти к содержимому</a>
+    <div class="site-shell">
+      <header class="site-header">
+        <a class="brand" href="#home" aria-label="Кодлокс — главная">
+          <svg class="brand-mark" viewBox="0 0 52 40" aria-hidden="true">
+            <path
+              d="M12 4h12L13 31H1zM31 4h12L32 31H20zM40 28h11l-5 11H35z"
+              fill="currentColor"
+            />
+          </svg>
+          <span>кодлокс</span>
+        </a>
+        <nav class="desktop-nav" aria-label="Главная навигация">
+          <a href="#home" data-nav="home">Главная</a>
+          <a href="#programs" data-nav="programs">Программы</a>
+          <a href="#about" data-nav="about">О школе</a>
+        </nav>
+        <a href="#grant" class="header-grant" data-nav="grant"
+          >Заявка на грант <span aria-hidden="true">↗</span></a
+        >
+        <button
+          class="account-button"
+          id="account-button"
+          type="button"
+          aria-haspopup="dialog"
+        >
+          <span class="avatar" id="account-avatar"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="8" r="3.5" />
+              <path d="M5 21v-2a7 7 0 0 1 14 0v2" /></svg
+          ></span>
+          <span id="account-label">Войти</span>
+        </button>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          aria-label="Включить тёмную тему"
+          aria-pressed="false"
+          title="Включить тёмную тему"
+        >
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 13A8.5 8.5 0 0 1 11 3.5 8.5 8.5 0 1 0 20.5 13Z" />
+          </svg>
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+          </svg>
+        </button>
+        <button
+          class="menu-button"
+          id="menu-button"
+          type="button"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="mobile-nav"
+        >
+          <span></span><span></span>
+        </button>
+      </header>
+      <nav
+        class="mobile-nav"
+        id="mobile-nav"
+        aria-label="Мобильная навигация"
+        hidden
+      >
+        <a href="#home">Главная</a><a href="#programs">Программы</a
+        ><a href="#about">О школе</a><a href="#grant">Заявка на грант ↗</a>
+      </nav>
+
+      <main id="main" tabindex="-1">
+        <div id="home-page">
+          <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-copy">
+              <div class="eyebrow">
+                <span class="status-dot"></span> ШКОЛА ПРОГРАММИРОВАНИЯ ДЛЯ
+                ДЕТЕЙ
+              </div>
+              <h1 id="hero-title">
+                Код твоего<br /><span class="lime">большого</span><br /><span
+                  class="hero-last"
+                  >будущего<span class="title-asterisk">✳</span></span
+                >
+              </h1>
+              <p>
+                Из игрока — в создателя. Помогаем детям<br
+                  class="desktop-break"
+                />
+                от 8 до 17 лет найти свой путь в IT.
+              </p>
+              <div class="hero-actions">
+                <a class="button button-primary" href="#grant"
+                  >Получить грант на обучение <span>↗</span></a
+                ><a class="text-link" href="#programs"
+                  >Выбрать программу <span>↓</span></a
+                >
+              </div>
+              <div class="hero-caption">
+                <span class="tiny-check">✓</span> С нуля · Онлайн · В небольших
+                группах
+              </div>
+            </div>
+            <div
+              class="hero-art"
+              aria-label="Иллюстрация редактора кода: создавай своё будущее"
+              role="img"
+            >
+              <div class="art-grid"></div>
+              <div class="art-orbit orbit-one"></div>
+              <div class="art-orbit orbit-two"></div>
+              <div class="floating-label top-label">
+                <span class="status-dot"></span> ТВОЯ ИДЕЯ. ТВОЙ КОД.
+              </div>
+              <div class="code-window">
+                <div class="window-toolbar">
+                  <div class="window-dots"><i></i><i></i><i></i></div>
+                  <span>my_future.js</span
+                  ><span class="toolbar-code">&lt;/&gt;</span>
+                </div>
+                <div class="code-lines">
+                  <div>
+                    <span class="line-no">01</span
+                    ><span class="code-purple">const</span> future
+                    <span class="code-purple">=</span> {
+                  </div>
+                  <div>
+                    <span class="line-no">02</span> idea:
+                    <span class="code-lime">'something great'</span>,
+                  </div>
+                  <div>
+                    <span class="line-no">03</span> skills: [<span
+                      class="code-lime"
+                      >'code'</span
+                    >, <span class="code-lime">'create'</span>],
+                  </div>
+                  <div>
+                    <span class="line-no">04</span> possibilities:
+                    <span class="code-purple">Infinity</span>
+                  </div>
+                  <div><span class="line-no">05</span>};</div>
+                  <div class="code-empty"><span class="line-no">06</span></div>
+                  <div>
+                    <span class="line-no">07</span
+                    ><span class="code-purple">start</span>(<span
+                      class="code-lime"
+                      >yourJourney</span
+                    >);<span class="code-cursor"></span>
+                  </div>
+                </div>
+                <div class="window-status">
+                  <span><i></i> Готов к запуску</span><span>JavaScript</span>
+                </div>
+              </div>
+              <div class="code-sticker">&lt;<span>/</span>&gt;</div>
+              <div class="future-card">
+                <span class="future-icon">↗</span>
+                <div>
+                  <strong>Будущее уже здесь.</strong
+                  ><span>И ты можешь его создать.</span>
+                </div>
+              </div>
+              <span class="art-spark spark-one">✳</span
+              ><span class="art-spark spark-two">+</span
+              ><span class="art-coordinate"
+                >55.75° N · 37.61° E / ONLINE EVERYWHERE</span
+              >
+            </div>
+          </section>
+
+          <section class="trust-strip" aria-label="Об обучении">
+            <div>
+              <strong>8–17 <span>лет</span></strong
+              ><span>возраст будущих создателей</span>
+            </div>
+            <div>
+              <strong>80<span>%</span></strong
+              ><span>практики на каждом занятии</span>
+            </div>
+            <div>
+              <strong>до 10</strong><span>учеников в одной группе</span>
+            </div>
+            <div class="trust-note">
+              <span class="mini-star">✳</span>
+              <p>
+                Не просто учимся.<br /><strong
+                  >Создаём то, чем гордимся.</strong
+                >
+              </p>
+            </div>
+          </section>
+
+          <section
+            class="programs-section"
+            id="programs"
+            aria-labelledby="programs-title"
+          >
+            <div class="section-heading">
+              <div>
+                <span class="section-kicker">01 / НАЙДИ СВОЁ НАПРАВЛЕНИЕ</span>
+                <h2 id="programs-title">
+                  От первого «привет»<br />до своего проекта<span class="lime"
+                    >.</span
+                  >
+                </h2>
+              </div>
+              <p>
+                Каждый большой разработчик<br />когда-то написал свою первую
+                строчку.
+              </p>
+            </div>
+            <div class="program-grid">
+              <article class="program-card program-hero">
+                <div class="card-top">
+                  <span class="pill">8–12 лет</span
+                  ><span class="card-number">01</span>
+                </div>
+                <div class="program-symbol" aria-hidden="true">
+                  {<span>✳</span>}
+                </div>
+                <h3>Герой</h3>
+                <p>
+                  Первое знакомство с IT. Создаём игры, пробуем 3D и учимся
+                  мыслить как разработчики.
+                </p>
+                <div class="program-tags">
+                  <span>Scratch</span><span>Roblox</span><span>3D</span>
+                </div>
+                <a href="#grant" class="card-link"
+                  >Начать своё приключение <span>↗</span></a
+                >
+              </article>
+              <article class="program-card program-legend">
+                <div class="card-top">
+                  <span class="pill">12–17 лет</span
+                  ><span class="card-number">02</span>
+                </div>
+                <div class="program-symbol" aria-hidden="true">
+                  &lt;<span>/</span>&gt;
+                </div>
+                <h3>Легенда</h3>
+                <p>
+                  От увлечения — к навыкам. Пишем код, разрабатываем сайты и
+                  собираем портфолио.
+                </p>
+                <div class="program-tags">
+                  <span>Python</span><span>JavaScript</span><span>Unity</span>
+                </div>
+                <a href="#grant" class="card-link"
+                  >Перейти на новый уровень <span>↗</span></a
+                >
+              </article>
+              <article class="program-card grant-promo">
+                <div class="card-top">
+                  <span class="pill">ПРИЁМ ЗАЯВОК 2026</span
+                  ><span class="card-number">↗</span>
+                </div>
+                <div class="program-symbol" aria-hidden="true">✳</div>
+                <h3>Твой шанс<br />на большее</h3>
+                <p>
+                  Подайте заявку на грант и получите льготные условия обучения в
+                  сфере IT.
+                </p>
+                <a href="#grant" class="card-link"
+                  >Подать заявку на грант <span>↗</span></a
+                >
+              </article>
+            </div>
+          </section>
+          <section class="about-section" id="about">
+            <span class="section-kicker">02 / УЧИМСЯ С ИНТЕРЕСОМ</span>
+            <div class="about-content">
+              <h2>
+                Меньше «надо».<br />Больше
+                <span class="lime">«я сам сделал!»</span>
+              </h2>
+              <div>
+                <p>
+                  В Кодлоксе дети становятся авторами собственных проектов.
+                  Живые занятия с преподавателем, понятные задачи и поддержка на
+                  каждом шаге.
+                </p>
+                <a href="#grant" class="text-link"
+                  >Сделать первый шаг <span>↗</span></a
+                >
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section
+          id="grant-page"
+          class="grant-page"
+          hidden
+          aria-labelledby="grant-title"
+        >
+          <a class="back-link" href="#home"><span>←</span> На главную</a>
+          <div class="grant-intro">
+            <div class="eyebrow">
+              <span class="status-dot"></span> ГРАНТОВАЯ ПРОГРАММА · ПРИЁМ
+              ЗАЯВОК 2026
+            </div>
+            <h1 id="grant-title">
+              Большие возможности.<br /><span class="lime">Одна заявка.</span>
+            </h1>
+            <p>
+              Заявка на получение гранта о предоставлении льготных условий<br
+                class="desktop-break"
+              />
+              на обучение в сфере IT.
+            </p>
+          </div>
+          <div class="grant-layout">
+            <form id="grant-form" class="grant-form">
+              <div class="form-topline">
+                <div>
+                  <span class="section-kicker">ЗАЯВКА НА ГРАНТ</span>
+                  <h2>Давайте знакомиться</h2>
+                </div>
+                <span class="required-note"
+                  ><span>*</span> Обязательные поля</span
+                >
+              </div>
+              <fieldset>
+                <legend>
+                  <span class="fieldset-number">01</span> Законный представитель
+                </legend>
+                <div class="fields-grid">
+                  <label class="field"
+                    >ФИО законного представителя <span class="required">*</span
+                    ><input
+                      name="parentName"
+                      id="parent-name"
+                      autocomplete="name"
+                      placeholder="Иванова Мария Сергеевна"
+                      maxlength="150"
+                      required
+                  /></label>
+                  <label class="field"
+                    >Телефон законного представителя
+                    <span class="required">*</span
+                    ><input
+                      name="phone"
+                      id="phone"
+                      type="tel"
+                      autocomplete="tel"
+                      placeholder="+7 (999) 123-45-67"
+                      maxlength="24"
+                      required
+                  /></label>
+                  <label class="field full-width"
+                    >Почта законного представителя
+                    <span class="required">*</span
+                    ><input
+                      name="email"
+                      id="email"
+                      type="email"
+                      autocomplete="email"
+                      placeholder="example@mail.ru"
+                      maxlength="150"
+                      required
+                  /></label>
+                </div>
+              </fieldset>
+              <fieldset>
+                <legend>
+                  <span class="fieldset-number">02</span> Данные учащегося
+                </legend>
+                <div class="fields-grid">
+                  <label class="field"
+                    >Дата рождения учащегося <span class="required">*</span
+                    ><input
+                      name="birthDate"
+                      id="birth-date"
+                      type="date"
+                      min="1900-01-01"
+                      required
+                    /><span class="field-hint"
+                      >Нажмите на поле, чтобы выбрать дату</span
+                    ></label
+                  >
+                  <label class="field"
+                    >ФИО учащегося <span class="required">*</span
+                    ><input
+                      name="studentName"
+                      id="student-name"
+                      autocomplete="off"
+                      placeholder="Иванов Пётр Алексеевич"
+                      maxlength="150"
+                      required
+                  /></label>
+                  <div class="field">
+                    <label id="social-label"
+                      >Льготная категория семьи
+                      <span class="required">*</span></label
+                    >
+                    <details class="multi-select" id="social-select">
+                      <summary aria-labelledby="social-label social-value">
+                        <span id="social-value">Выберите категорию</span
+                        ><span class="select-chevron" aria-hidden="true"></span>
+                      </summary>
+                      <div
+                        class="multi-options"
+                        role="group"
+                        aria-labelledby="social-label"
+                      >
+                        <label
+                          ><input
+                            type="checkbox"
+                            name="socialCategory"
+                            value="Многодетная семья"
+                          />Многодетная семья</label
+                        ><label
+                          ><input
+                            type="checkbox"
+                            name="socialCategory"
+                            value="Малообеспеченная семья"
+                          />Малообеспеченная семья</label
+                        ><label
+                          ><input
+                            type="checkbox"
+                            name="socialCategory"
+                            value="Неполная семья"
+                          />Неполная семья</label
+                        ><label
+                          ><input
+                            type="checkbox"
+                            name="socialCategory"
+                            value="Ребёнок с ОВЗ"
+                          />Ребёнок с ОВЗ</label
+                        ><label
+                          ><input
+                            type="checkbox"
+                            name="socialCategory"
+                            value="Семья участника СВО"
+                          />Семья участника СВО</label
+                        ><label
+                          ><input
+                            type="checkbox"
+                            name="socialCategory"
+                            value="Без льготной категории"
+                          />Без льготной категории</label
+                        >
+                      </div>
+                    </details>
+                    <span class="field-hint" id="social-hint"
+                      >Можно выбрать несколько категорий</span
+                    >
+                  </div>
+                  <label class="field"
+                    >Итоговая оценка за диагностику
+                    <span class="required">*</span
+                    ><span class="select-wrap"
+                      ><select name="diagnostic" id="diagnostic" required>
+                        <option value="" disabled selected>
+                          Выберите оценку
+                        </option>
+                        <option value="5 — отлично">5 — отлично</option>
+                        <option value="4 — хорошо">4 — хорошо</option>
+                        <option value="3 — удовлетворительно">
+                          3 — удовлетворительно
+                        </option>
+                        <option value="Ещё не проходили">
+                          Ещё не проходили
+                        </option>
+                      </select></span
+                    ></label
+                  >
+                  <label class="field"
+                    >Номер школы <span class="required">*</span
+                    ><input
+                      name="school"
+                      id="school"
+                      placeholder="ГБОУ Школа № 1234"
+                      maxlength="150"
+                      required
+                  /></label>
+                  <label class="field"
+                    >Населённый пункт <span class="required">*</span
+                    ><input
+                      name="city"
+                      id="city"
+                      autocomplete="address-level2"
+                      placeholder="г. Москва"
+                      maxlength="120"
+                      required
+                  /></label>
+                </div>
+              </fieldset>
+              <div class="form-bottom">
+                <button
+                  class="button button-primary"
+                  type="submit"
+                  id="submit-grant"
+                >
+                  Отправить заявку <span>↗</span></button
+                ><span class="draft-status" id="draft-status" role="status"
+                  ><span class="tiny-check">✓</span> Черновик сохраняется
+                  автоматически</span
+                >
+              </div>
+              <p class="form-error" id="form-error" role="alert" hidden></p>
+            </form>
+            <aside class="grant-aside">
+              <div class="aside-symbol" aria-hidden="true">✳</div>
+              <span class="section-kicker">ПЕРВЫЙ ШАГ В IT</span>
+              <h2>Возможности<br />начинаются<br />с тебя.</h2>
+              <p>
+                Заполните анкету законного представителя и учащегося. Дальше мы
+                всё проверим.
+              </p>
+              <ol class="aside-steps">
+                <li>
+                  <span>01</span>
+                  <div>
+                    <strong>Заполните заявку</strong>
+                    <p>Всего несколько минут</p>
+                  </div>
+                </li>
+                <li>
+                  <span>02</span>
+                  <div>
+                    <strong>Дождитесь проверки</strong>
+                    <p>Статус на каждом этапе</p>
+                  </div>
+                </li>
+                <li>
+                  <span>03</span>
+                  <div>
+                    <strong>Получите результат</strong>
+                    <p>Решение сразу на экране</p>
+                  </div>
+                </li>
+              </ol>
+              <div class="aside-note">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M12 3 4 6v6c0 4 8 9 8 9s8-5 8-9V6z" />
+                  <path d="m8 12 3 3 5-6" /></svg
+                ><span>Данные сохраняются<br />только в вашем браузере</span>
+              </div>
+            </aside>
+          </div>
+          <div class="saved-application" id="saved-application" hidden>
+            <span class="tiny-check">✓</span>
+            <div>
+              <strong>У вас есть готовое решение</strong>
+              <p id="saved-application-info"></p>
+            </div>
+            <button class="text-link" id="show-last-result" type="button">
+              Посмотреть <span>↗</span>
+            </button>
+          </div>
+          <p class="demo-note">
+            Демонстрационная заявка. Проверка и решение имитируются, данные не
+            отправляются на сервер.
+          </p>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <div class="footer-top">
+          <a class="brand" href="#home"
+            ><svg class="brand-mark" viewBox="0 0 52 40" aria-hidden="true">
+              <path
+                d="M12 4h12L13 31H1zM31 4h12L32 31H20zM40 28h11l-5 11H35z"
+                fill="currentColor"
+              /></svg
+            ><span>кодлокс</span></a
+          >
+          <p>Здесь начинается<br />твоё большое будущее.</p>
+          <a href="#grant" class="footer-cta"
+            >Будем создавать? <span>↗</span></a
+          >
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Кодлокс. Учимся создавать.</span
+          ><span>Демонстрационный мини-сайт</span><a href="#home">Наверх ↑</a>
+        </div>
+      </footer>
+    </div>
+
+    <dialog
+      id="login-dialog"
+      class="modal login-modal"
+      aria-labelledby="login-title"
+    >
+      <button
+        class="close-button"
+        type="button"
+        data-close="login-dialog"
+        aria-label="Закрыть окно"
+      >
+        ×
+      </button>
+      <div class="modal-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="8" r="3.5" />
+          <path d="M5 21v-2a7 7 0 0 1 14 0v2" />
+        </svg>
+      </div>
+      <span class="section-kicker">ЛИЧНЫЙ КАБИНЕТ</span>
+      <h2 id="login-title">С возвращением<span class="lime">.</span></h2>
+      <p class="modal-description" id="login-description">
+        Войдите, чтобы сохранить свой следующий шаг в IT.
+      </p>
+      <form id="login-form">
+        <label class="field"
+          >Логин<input
+            id="login"
+            name="login"
+            placeholder="Как к вам обращаться?"
+            autocomplete="username"
+            maxlength="50"
+            required /></label
+        ><label class="field password-field"
+          >Пароль<span class="password-wrap"
+            ><input
+              id="password"
+              name="password"
+              type="password"
+              placeholder="Введите любой пароль"
+              autocomplete="off"
+              maxlength="100"
+              required /><button
+              id="toggle-password"
+              class="password-toggle"
+              type="button"
+              aria-label="Показать пароль"
+              aria-pressed="false"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12Z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg></button></span></label
+        ><button class="button button-primary" type="submit">
+          Войти <span>↗</span>
+        </button>
+      </form>
+      <p class="login-note">
+        Это демовход: подойдут любые логин и пароль.<br />Они сохранятся в
+        localStorage этого браузера.
+      </p>
+    </dialog>
+
+    <dialog
+      id="profile-dialog"
+      class="modal profile-modal"
+      aria-labelledby="profile-title"
+    >
+      <button
+        class="close-button"
+        type="button"
+        data-close="profile-dialog"
+        aria-label="Закрыть окно"
+      >
+        ×
+      </button>
+      <div class="profile-avatar" id="profile-avatar"></div>
+      <span class="section-kicker">ЛИЧНЫЙ КАБИНЕТ</span>
+      <h2 id="profile-title"></h2>
+      <p class="modal-description">
+        Хороший день, чтобы сделать шаг в будущее.
+      </p>
+      <button
+        type="button"
+        id="profile-application"
+        class="profile-application"
+      >
+        <span>Моя заявка на грант</span><span>↗</span></button
+      ><button class="button button-secondary" id="logout" type="button">
+        Выйти из аккаунта
+      </button>
+    </dialog>
+
+    <dialog
+      id="progress-dialog"
+      class="modal progress-modal"
+      aria-labelledby="progress-title"
+      aria-describedby="progress-description"
+    >
+      <div class="progress-heading">
+        <span class="status-dot"></span
+        ><span class="section-kicker" id="progress-title">ПРОВЕРКА ДАННЫХ</span
+        ><span id="progress-percent">0%</span>
+      </div>
+      <h2>Ваше будущее загружается<span class="lime">.</span></h2>
+      <p class="modal-description" id="progress-description">
+        Заявка обрабатывается в демонстрационном режиме.<br />Пожалуйста, не
+        закрывайте страницу.
+      </p>
+      <div
+        class="progress-track"
+        role="progressbar"
+        aria-label="Проверка заявки"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        id="progress-bar"
+      >
+        <span id="progress-fill"></span>
+      </div>
+      <ol id="checkpoints" class="checkpoints">
+        <li>
+          <span class="checkpoint-icon"></span
+          ><span>Передача данных в систему</span
+          ><span class="checkpoint-state"></span>
+        </li>
+        <li>
+          <span class="checkpoint-icon"></span
+          ><span>Анализ успеваемости и достижений</span
+          ><span class="checkpoint-state"></span>
+        </li>
+        <li>
+          <span class="checkpoint-icon"></span
+          ><span>Проверка социального статуса</span
+          ><span class="checkpoint-state"></span>
+        </li>
+        <li>
+          <span class="checkpoint-icon"></span><span>Проверка льгот</span
+          ><span class="checkpoint-state"></span>
+        </li>
+        <li>
+          <span class="checkpoint-icon"></span
+          ><span>Расчёт итогового балла</span
+          ><span class="checkpoint-state"></span>
+        </li>
+        <li>
+          <span class="checkpoint-icon"></span
+          ><span>Формирование результата</span
+          ><span class="checkpoint-state"></span>
+        </li>
+        <li>
+          <span class="checkpoint-icon"></span
+          ><span>Подготовка итогового решения</span
+          ><span class="checkpoint-state"></span>
+        </li>
+      </ol>
+      <div
+        class="progress-live sr-only"
+        id="progress-live"
+        role="status"
+        aria-live="polite"
+      ></div>
+      <p class="progress-footnote">
+        <span class="tiny-check">✓</span> Всё идёт по плану. Осталось совсем
+        немного.
+      </p>
+    </dialog>
+
+    <dialog
+      id="result-dialog"
+      class="modal result-modal"
+      aria-labelledby="result-title"
+    >
+      <button
+        class="close-button"
+        type="button"
+        data-close="result-dialog"
+        aria-label="Закрыть окно"
+      >
+        ×
+      </button>
+      <div class="success-icon" aria-hidden="true">✓</div>
+      <span class="section-kicker">НОВЫЙ УРОВЕНЬ РАЗБЛОКИРОВАН</span>
+      <h2 id="result-title">Грант одобрен<span class="lime">!</span></h2>
+      <p class="result-description">
+        Школа «Кодлокс» предоставляет вам право<br class="desktop-break" />
+        на льготное обучение в сфере IT.
+      </p>
+      <div class="decision-number">
+        <span>НОМЕР РЕШЕНИЯ</span><strong id="decision-number"></strong>
+      </div>
+      <div class="result-details" id="result-details"></div>
+      <button
+        class="button button-primary result-close"
+        type="button"
+        data-close="result-dialog"
+      >
+        Отлично, спасибо <span>✓</span>
+      </button>
+      <p class="result-note">
+        Демонстрационное решение · Сохранено в вашем браузере
+      </p>
+    </dialog>
+    <div class="toast" id="toast" role="status" hidden></div>
+  </body>
+</html>

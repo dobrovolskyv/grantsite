@@ -1,0 +1,90 @@
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  flex: 0 0 38px;
+  width: 38px;
+  height: 38px;
+  padding: 8px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--lime);
+}
+
+.theme-toggle:hover {
+  background: var(--lime);
+  color: var(--bg);
+  border-color: var(--lime);
+}
+
+.theme-toggle svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-icon-sun,
+[data-theme="dark"] .theme-icon-moon {
+  display: none;
+}
+
+[data-theme="dark"] .theme-icon-sun {
+  display: block;
+}
+
+/* Collapse indentation in the decorative editor in either design. */
+.code-lines,
+.code-lines > div {
+  white-space: nowrap;
+}
+
+.code-lines > div {
+  display: block;
+}
+
+.line-no {
+  display: inline-block;
+}
+
+@media (max-width: 640px) {
+  .site-header {
+    gap: 10px;
+    padding: 0 14px;
+  }
+
+  .site-header .brand {
+    gap: 6px;
+    font-size: 21px;
+  }
+
+  .site-header .brand-mark {
+    width: 24px;
+  }
+
+  .site-header .account-button {
+    min-width: 0;
+    max-width: clamp(36px, calc(100vw - 288px), 100px);
+  }
+
+  .site-header .avatar {
+    display: none;
+  }
+
+  .theme-toggle {
+    flex-basis: 34px;
+    width: 34px;
+    height: 34px;
+    padding: 6px;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero-actions .button {
+    max-width: 100%;
+    white-space: normal;
+  }
+}
